@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
 import { saveAllocateSubject } from "../../app/actions/allocatesubject.action";
 import AllocateSubjectsTable from "../../Components/AllocateSubjectsTable";
-import CardPanel from "../../Components/CardPanel";
+import CardPanel from "../../Common/CardPanel";
 import SubjectSelect from "../../Components/SubjectSelectComponent";
 import TeacherSelect from "../../Components/TeacherSelectComponent";
 

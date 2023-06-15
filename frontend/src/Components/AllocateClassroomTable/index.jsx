@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TableComponent from "../TableComponent";
+import TableComponent from "../../Common/TableComponent";
 import {
   deleteAllocateClassroomById,
   getAllocateClassrooms,
@@ -15,7 +15,7 @@ function AllocateClassroomTable({ teacherId }) {
 
   useEffect(() => {
     dispatch(getAllocateClassrooms());
-  }, [allocateClassrooms.length]);
+  }, [dispatch,allocateClassrooms.length]);
 
   useEffect(() => {
     let tempTableData = [];

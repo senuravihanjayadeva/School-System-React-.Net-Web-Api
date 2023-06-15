@@ -9,26 +9,29 @@ function TeacherSelect(props) {
 
   useEffect(() => {
     dispatch(getTeachers());
-  }, []);
+  }, [dispatch]);
 
   return (
-    <Input
-      type="select"
-      className="mt-2 mb-2"
-      onChange={(e) => {
-        props.onHandleChange(e.target.value);
-      }}
-    >
-      <option value="">Select an option</option>
-      {teachers.length &&
-        teachers.map((teacher) => {
-          return (
-            <option value={teacher.teacherID}>
-              {`${teacher.firstName} ${teacher.lastName}`}
-            </option>
-          );
-        })}
-    </Input>
+    <>
+      <h5>Teacher</h5>
+      <Input
+        type="select"
+        className="mt-2 mb-3"
+        onChange={(e) => {
+          props.onHandleChange(e.target.value);
+        }}
+      >
+        <option value="">Select an option</option>
+        {teachers.length &&
+          teachers.map((teacher) => {
+            return (
+              <option key={teacher.teacherID} value={teacher.teacherID}>
+                {`${teacher.firstName} ${teacher.lastName}`}
+              </option>
+            );
+          })}
+      </Input>
+    </>
   );
 }
 

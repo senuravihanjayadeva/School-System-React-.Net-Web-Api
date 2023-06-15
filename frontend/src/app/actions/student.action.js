@@ -27,7 +27,7 @@ export const updateStudentById = createAsyncThunk(
 export const deleteStudentById = createAsyncThunk(
   "student/deleteStudentById",
   async (id) => {
-    const response = await STUDENTAPI.deleteStudentById(id);
+    await STUDENTAPI.deleteStudentById(id);
     return id;
   }
 );

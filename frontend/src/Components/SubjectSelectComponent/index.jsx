@@ -9,26 +9,29 @@ function SubjectSelect(props) {
 
   useEffect(() => {
     dispatch(getSubjects());
-  }, []);
+  }, [dispatch]);
 
   return (
-    <Input
-      type="select"
-      className="mt-2 mb-2"
-      onChange={(e) => {
-        props.onHandleChange(e.target.value);
-      }}
-    >
-      <option value="">Select an option</option>
-      {subjects.length &&
-        subjects.map((subject) => {
-          return (
-            <option value={subject.subjectID}>
-              {subject.subjectName}
-            </option>
-          );
-        })}
-    </Input>
+    <>
+      <h5>Subject</h5>
+      <Input
+        type="select"
+        className="mt-2 mb-2"
+        onChange={(e) => {
+          props.onHandleChange(e.target.value);
+        }}
+      >
+        <option value="">Select an option</option>
+        {subjects.length &&
+          subjects.map((subject) => {
+            return (
+              <option key={subject.subjectID} value={subject.subjectID}>
+                {subject.subjectName}
+              </option>
+            );
+          })}
+      </Input>
+    </>
   );
 }
 

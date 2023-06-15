@@ -9,9 +9,11 @@ function ClassroomSelect(props) {
 
   useEffect(() => {
     dispatch(getClassrooms());
-  }, []);
+  }, [dispatch]);
 
   return (
+    <>
+    <h5>Classroom</h5>
     <Input
       type="select"
       className="mt-2 mb-2"
@@ -23,10 +25,12 @@ function ClassroomSelect(props) {
       {classrooms.length &&
         classrooms.map((classroom) => {
           return (
-            <option value={classroom.classroomID}>{classroom.classroomName}</option>
+            <option key={classroom.classroomID} value={classroom.classroomID}>{classroom.classroomName}</option>
           );
         })}
     </Input>
+    </>
+    
   );
 }
 

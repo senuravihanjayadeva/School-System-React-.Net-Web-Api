@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CardPanel from "../CardPanel";
-import TableComponent from "../TableComponent";
+import CardPanel from "../../Common/CardPanel";
+import TableComponent from "../../Common/TableComponent";
 import { getStudents } from "../../app/actions/student.action";
 
 function ExistingStudentTable() {
@@ -11,7 +11,7 @@ function ExistingStudentTable() {
 
   useEffect(() => {
     dispatch(getStudents());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let tempTableData = [];

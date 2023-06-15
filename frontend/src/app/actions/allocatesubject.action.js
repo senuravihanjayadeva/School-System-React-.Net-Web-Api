@@ -27,7 +27,7 @@ export const updateAllocateSubjectById = createAsyncThunk(
 export const deleteAllocateSubjectById = createAsyncThunk(
   "allocatesubject/deleteAllocateSubjectById",
   async (id) => {
-    const response = await ALLOCATESUBJECTAPI.deleteAllocateSubjectById(id);
+    await ALLOCATESUBJECTAPI.deleteAllocateSubjectById(id);
     return id;
   }
 );

@@ -1,12 +1,12 @@
 import React from "react";
-import { Card, Container, CardBody, Row, Col } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import "./card-panel.scss";
 
-function CardPanel({ title, children }) {
+function CardPanel({ title, children, color}) {
   return (
     <Container className="card-panel">
       <Row>
-        <Col style={{ backgroundColor: "green" }}>{title}</Col>
+        <Col style={{ backgroundColor: color }}>{title}</Col>
       </Row>
 
       <Container className="p-5">
@@ -15,5 +15,9 @@ function CardPanel({ title, children }) {
     </Container>
   );
 }
+
+CardPanel.defaultProps = {
+  color: '#43c90a',
+};
 
 export default CardPanel;

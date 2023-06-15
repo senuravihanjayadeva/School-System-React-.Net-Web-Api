@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Button,
-} from "reactstrap";
-import CardPanel from "../CardPanel";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import moment from "moment";
+import { Row, Col, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import CardPanel from "../../Common/CardPanel";
 import { saveStudent } from "../../app/actions/student.action";
 import { getClassrooms } from "../../app/actions/classroom.action";
+
+const validationSchema = Yup.object({
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  contactPerson: Yup.string().required("Contact Person is required"),
+  contactNo: Yup.string()
+    .required("Phone number is required")
+    .matches(/^\d{10}$/, "Phone number must be 10 digits"),
+  emailAddress: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  classroomID: Yup.number().required("Classroom is required"),
+});
 
 function StudentDetailsForm() {
   const dispatch = useDispatch();
@@ -19,141 +27,175 @@ function StudentDetailsForm() {
 
   useEffect(() => {
     dispatch(getClassrooms());
-  }, []);
+  }, [dispatch]);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [contactPerson, setContactPerson] = useState("");
-  const [contactNo, setContactNo] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
   const [age, setAge] = useState("");
-  const [classroomID, setClassroomID] = useState("");
 
-  const onHandleSubmit = (e) => {
-    e.preventDefault();
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      contactPerson: "",
+      contactNo: "",
+      emailAddress: "",
+      dateOfBirth: "",
+      age: "",
+      classroomID: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      // Handle form submission
+      const student = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        contactPerson: values.contactPerson,
+        contactNo: values.contactNo,
+        emailAddress: values.emailAddress,
+        dateOfBirth: values.dateOfBirth,
+        age: age, // Update the age value here
+        classroomID: values.classroomID,
+      };
 
-    const student = {
-      firstName,
-      lastName,
-      contactPerson,
-      contactNo,
-      emailAddress,
-      dateOfBirth,
-      age,
-      classroomID,
-    };
+      dispatch(saveStudent(student));
+    },
+  });
 
-    dispatch(saveStudent(student));
+  const calculateAge = (selectedDate) => {
+    const currentDate = moment();
+    const dob = moment(selectedDate);
+    const years = currentDate.diff(dob, "years");
+    setAge(years);
   };
+
   return (
     <CardPanel title="Student Details">
-      <Form onSubmit={onHandleSubmit} className="p-2">
+      <Form onSubmit={formik.handleSubmit} className="p-2">
         <Row xs="2">
           <Col>
             <FormGroup>
-              <Label for="FirstName">First Name</Label>
+              <Label for="firstName">First Name</Label>
               <Input
                 type="text"
-                name="FirstName"
-                id="FirstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                name="firstName"
+                id="firstName"
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
               />
+              {formik.touched.firstName && formik.errors.firstName && (
+                <div className="text-danger">{formik.errors.firstName}</div>
+              )}
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              <Label for="LastName">Last Name</Label>
+              <Label for="lastName">Last Name</Label>
               <Input
                 type="text"
-                name="LastName"
-                id="LastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                name="lastName"
+                id="lastName"
+                value={formik.values.lastName}
+                onChange={formik.handleChange}
               />
+              {formik.touched.lastName && formik.errors.lastName && (
+                <div className="text-danger">{formik.errors.lastName}</div>
+              )}
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              <Label for="ContactPerson">Contact Person</Label>
+              <Label for="contactPerson">Contact Person</Label>
               <Input
                 type="text"
-                name="ContactPerson"
-                id="ContactPerson"
-                value={contactPerson}
-                onChange={(e) => setContactPerson(e.target.value)}
+                name="contactPerson"
+                id="contactPerson"
+                value={formik.values.contactPerson}
+                onChange={formik.handleChange}
               />
+              {formik.touched.contactPerson && formik.errors.contactPerson && (
+                <div className="text-danger">{formik.errors.contactPerson}</div>
+              )}
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              <Label for="ContactNo">Contact No</Label>
+              <Label for="contactNo">Contact No</Label>
               <Input
                 type="text"
-                name="ContactNo"
-                id="ContactNo"
-                value={contactNo}
-                onChange={(e) => setContactNo(e.target.value)}
+                name="contactNo"
+                id="contactNo"
+                value={formik.values.contactNo}
+                onChange={formik.handleChange}
               />
+              {formik.touched.contactNo && formik.errors.contactNo && (
+                <div className="text-danger">{formik.errors.contactNo}</div>
+              )}
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              <Label for="EmailAddress">Email Address</Label>
+              <Label for="emailAddress">Email Address</Label>
               <Input
                 type="email"
-                name="EmailAddress"
-                id="EmailAddress"
-                value={emailAddress}
-                onChange={(e) => setEmailAddress(e.target.value)}
+                name="emailAddress"
+                id="emailAddress"
+                value={formik.values.emailAddress}
+                onChange={formik.handleChange}
               />
+              {formik.touched.emailAddress && formik.errors.emailAddress && (
+                <div className="text-danger">{formik.errors.emailAddress}</div>
+              )}
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              <Label for="DateOfBirth">Date of Birth</Label>
+              <Label for="dateOfBirth">Date of Birth</Label>
               <Input
                 type="date"
-                name="DateOfBirth"
-                id="DateOfBirth"
-                value={dateOfBirth}
-                onChange={(e) => setDateOfBirth(e.target.value)}
+                name="dateOfBirth"
+                id="dateOfBirth"
+                value={formik.values.dateOfBirth}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  calculateAge(e.target.value);
+                }}
               />
+              {formik.touched.dateOfBirth && formik.errors.dateOfBirth && (
+                <div className="text-danger">{formik.errors.dateOfBirth}</div>
+              )}
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <Label for="Age">Age</Label>
-              <Input
-                type="number"
-                name="Age"
-                id="Age"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-              />
+              <Input type="number" name="Age" id="Age" value={age} readOnly />
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              <Label for="ClassroomID">Class Room</Label>
+              <Label for="classroomID">Class Room</Label>
               <Input
                 type="select"
-                value={classroomID}
-                onChange={(e) => {
-                  setClassroomID(e.target.value);
-                }}
+                name="classroomID"
+                id="classroomID"
+                value={formik.values.classroomID}
+                onChange={formik.handleChange}
               >
                 <option value="">Select an option</option>
                 {classrooms.length &&
                   classrooms.map((classroom) => {
                     return (
-                      <option key={classroom.classroomID} value={classroom.classroomID}>
+                      <option
+                        key={classroom.classroomID}
+                        value={classroom.classroomID}
+                      >
                         {classroom.classroomName}
                       </option>
                     );
                   })}
               </Input>
+              {formik.touched.classroomID && formik.errors.classroomID && (
+                <div className="text-danger">{formik.errors.classroomID}</div>
+              )}
             </FormGroup>
           </Col>
         </Row>

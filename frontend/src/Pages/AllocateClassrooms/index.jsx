@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
 import { saveAllocateClassroom } from "../../app/actions/allocateclassroom.action";
 import AllocateClassroomTable from "../../Components/AllocateClassroomTable";
-import CardPanel from "../../Components/CardPanel";
+import CardPanel from "../../Common/CardPanel";
 import ClassroomSelect from "../../Components/ClassroomSelectComponent";
 import TeacherSelect from "../../Components/TeacherSelectComponent";
 

@@ -27,7 +27,7 @@ export const updateTeacherById = createAsyncThunk(
 export const deleteTeacherById = createAsyncThunk(
   "teacher/deleteTeacherById",
   async (id) => {
-    const response = await TEACHERAPI.deleteTeacherById(id);
+    await TEACHERAPI.deleteTeacherById(id);
     return id;
   }
 );

@@ -27,7 +27,7 @@ export const updateAllocateClassroomById = createAsyncThunk(
 export const deleteAllocateClassroomById = createAsyncThunk(
   "allocateclassroom/deleteAllocateClassroomById",
   async (id) => {
-    const response = await ALLOCATECLASSROOMAPI.deleteAllocateClassroomById(id);
+    await ALLOCATECLASSROOMAPI.deleteAllocateClassroomById(id);
     return id;
   }
 );
