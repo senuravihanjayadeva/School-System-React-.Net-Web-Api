@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Table } from "reactstrap";
+import React from 'react';
+import { Button, Table } from 'reactstrap';
 
 function TableComponent({ tableColumns, tableData, onClickButton }) {
   return (
@@ -16,7 +16,7 @@ function TableComponent({ tableColumns, tableData, onClickButton }) {
           return (
             <tr key={index}>
               {row.map((data, index) => {
-                return data.type === "button" ? (
+                return data.type === 'button' ? (
                   <td key={index}>
                     <Button
                       onClick={() => {

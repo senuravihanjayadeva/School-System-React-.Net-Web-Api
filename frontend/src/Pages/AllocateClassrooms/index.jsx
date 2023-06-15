@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Button } from "reactstrap";
-import { saveAllocateClassroom } from "../../app/actions/allocateclassroom.action";
-import AllocateClassroomTable from "../../Components/AllocateClassroomTable";
-import CardPanel from "../../Common/CardPanel";
-import ClassroomSelect from "../../Components/ClassroomSelectComponent";
-import TeacherSelect from "../../Components/TeacherSelectComponent";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Button } from 'reactstrap';
+import { saveAllocateClassroom } from '../../app/actions/allocateclassroom.action';
+import AllocateClassroomTable from '../../Components/AllocateClassroomTable';
+import CardPanel from '../../Common/CardPanel';
+import ClassroomSelect from '../../Components/ClassroomSelectComponent';
+import TeacherSelect from '../../Components/TeacherSelectComponent';
 
 function AllocateClassrooms() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function AllocateClassrooms() {
     dispatch(saveAllocateClassroom(allocation));
   };
   return (
-    <CardPanel title="Allocated Classrooms">
+    <CardPanel title='Allocated Classrooms'>
       <TeacherSelect onHandleChange={onHandleTeacherChange} />
       <ClassroomSelect onHandleChange={onHandleClassroomChange} />
       <Button onClick={handleOnSubmit}>Allocate</Button>

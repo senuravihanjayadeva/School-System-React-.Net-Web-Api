@@ -1,6 +1,6 @@
-import React from "react";
-import ExistingStudentTable from "../../Components/ExistingStudentTable";
-import StudentDetailsForm from "../../Components/StudentDetailsForm";
+import React from 'react';
+import ExistingStudentTable from '../../Components/ExistingStudentTable';
+import StudentDetailsForm from '../../Components/StudentDetailsForm';
 
 function Students() {
   return (

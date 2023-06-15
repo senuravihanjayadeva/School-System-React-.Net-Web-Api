@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Button } from "reactstrap";
-import { saveAllocateSubject } from "../../app/actions/allocatesubject.action";
-import AllocateSubjectsTable from "../../Components/AllocateSubjectsTable";
-import CardPanel from "../../Common/CardPanel";
-import SubjectSelect from "../../Components/SubjectSelectComponent";
-import TeacherSelect from "../../Components/TeacherSelectComponent";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Button } from 'reactstrap';
+import { saveAllocateSubject } from '../../app/actions/allocatesubject.action';
+import AllocateSubjectsTable from '../../Components/AllocateSubjectsTable';
+import CardPanel from '../../Common/CardPanel';
+import SubjectSelect from '../../Components/SubjectSelectComponent';
+import TeacherSelect from '../../Components/TeacherSelectComponent';
 
 function AllocatedSubjects() {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function AllocatedSubjects() {
   };
 
   return (
-    <CardPanel title="Allocated Subjects">
+    <CardPanel title='Allocated Subjects'>
       <TeacherSelect onHandleChange={onHandleTeacherChange} />
       <SubjectSelect onHandleChange={onHandleSubjectChange} />
       <Button onClick={handleOnSubmit}>Allocate</Button>

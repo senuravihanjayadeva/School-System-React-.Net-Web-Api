@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import CardPanel from "../../Common/CardPanel";
-import TableComponent from "../../Common/TableComponent";
-import { getStudents } from "../../app/actions/student.action";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import CardPanel from '../../Common/CardPanel';
+import TableComponent from '../../Common/TableComponent';
+import { getStudents } from '../../app/actions/student.action';
 
 function ExistingStudentTable() {
   const [tableData, setTableData] = useState([]);
@@ -19,19 +19,19 @@ function ExistingStudentTable() {
       let data = [
         {
           value: student.firstName,
-          type: "text",
+          type: 'text',
         },
         {
           value: student.lastName,
-          type: "text",
+          type: 'text',
         },
         {
           value: student.contactPerson,
-          type: "text",
+          type: 'text',
         },
         {
           value: student.contactNo,
-          type: "text",
+          type: 'text',
         },
       ];
       tempTableData.push(data);
@@ -39,20 +39,11 @@ function ExistingStudentTable() {
     setTableData(tempTableData);
   }, [students]);
 
-  const tableColumns = [
-    "First Name",
-    "Last Name",
-    "Contact Person",
-    "Contact No",
-  ];
+  const tableColumns = ['First Name', 'Last Name', 'Contact Person', 'Contact No'];
 
   return (
-    <CardPanel title="Existing Students">
-      {tableData.length ? (
-        <TableComponent tableColumns={tableColumns} tableData={tableData} />
-      ) : (
-        ""
-      )}
+    <CardPanel title='Existing Students'>
+      {tableData.length ? <TableComponent tableColumns={tableColumns} tableData={tableData} /> : ''}
     </CardPanel>
   );
 }

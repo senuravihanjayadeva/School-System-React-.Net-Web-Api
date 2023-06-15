@@ -1,15 +1,15 @@
-import React from "react";
-import { Container, Row, Col } from "reactstrap";
-import "./card-panel.scss";
+import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
+import './card-panel.scss';
 
-function CardPanel({ title, children, color}) {
+function CardPanel({ title, children, color }) {
   return (
-    <Container className="card-panel">
+    <Container className='card-panel'>
       <Row>
         <Col style={{ backgroundColor: color }}>{title}</Col>
       </Row>
 
-      <Container className="p-5">
+      <Container className='p-5'>
         <Row>{children}</Row>
       </Container>
     </Container>

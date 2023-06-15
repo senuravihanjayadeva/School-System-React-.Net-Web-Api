@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import TableComponent from "../../Common/TableComponent";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import TableComponent from '../../Common/TableComponent';
 import {
   deleteAllocateSubjectById,
   getAllocateSubjects,
-} from "../../app/actions/allocatesubject.action";
+} from '../../app/actions/allocatesubject.action';
 
 function AllocateSubjectsTable({ teacherId }) {
   const [tableData, setTableData] = useState([]);
   const dispatch = useDispatch();
-  const allocateSubjects = useSelector(
-    (state) => state.allocatesubject.allocateSubjects
-  );
+  const allocateSubjects = useSelector((state) => state.allocatesubject.allocateSubjects);
 
   useEffect(() => {
     dispatch(getAllocateSubjects());
-  }, [dispatch,allocateSubjects.length]);
+  }, [dispatch, allocateSubjects.length]);
 
   useEffect(() => {
     let tempTableData = [];
     let filteredList = allocateSubjects.filter(
-      (allocation) => allocation.teacher?.teacherID === parseInt(teacherId)
+      (allocation) => allocation.teacher?.teacherID === parseInt(teacherId),
     );
     filteredList.forEach((allocation) => {
       let data = [
         {
           value: allocation.subject.subjectName,
-          type: "text",
+          type: 'text',
         },
         {
-          value: "Deallocate",
+          value: 'Deallocate',
           primaryId: allocation.allocateSubjectID,
-          type: "button",
+          type: 'button',
         },
       ];
       tempTableData.push(data);
@@ -39,7 +37,7 @@ function AllocateSubjectsTable({ teacherId }) {
     setTableData(tempTableData);
   }, [teacherId, allocateSubjects]);
 
-  const tableColumns = ["Subject", "Action"];
+  const tableColumns = ['Subject', 'Action'];
 
   const onClickButton = (value) => {
     dispatch(deleteAllocateSubjectById(value));
@@ -54,7 +52,7 @@ function AllocateSubjectsTable({ teacherId }) {
           onClickButton={onClickButton}
         />
       ) : (
-        ""
+        ''
       )}
     </>
   );

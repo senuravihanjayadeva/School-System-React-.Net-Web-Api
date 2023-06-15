@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import TableComponent from "../../Common/TableComponent";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import TableComponent from '../../Common/TableComponent';
 import {
   deleteAllocateClassroomById,
   getAllocateClassrooms,
-} from "../../app/actions/allocateclassroom.action";
+} from '../../app/actions/allocateclassroom.action';
 
 function AllocateClassroomTable({ teacherId }) {
   const [tableData, setTableData] = useState([]);
   const dispatch = useDispatch();
-  const allocateClassrooms = useSelector(
-    (state) => state.allocateclassroom.allocateClassrooms
-  );
+  const allocateClassrooms = useSelector((state) => state.allocateclassroom.allocateClassrooms);
 
   useEffect(() => {
     dispatch(getAllocateClassrooms());
-  }, [dispatch,allocateClassrooms.length]);
+  }, [dispatch, allocateClassrooms.length]);
 
   useEffect(() => {
     let tempTableData = [];
     let filteredList = allocateClassrooms.filter(
-      (allocation) => allocation.teacher?.teacherID === parseInt(teacherId)
+      (allocation) => allocation.teacher?.teacherID === parseInt(teacherId),
     );
     filteredList.forEach((allocation) => {
       let data = [
         {
           value: allocation.classroom.classroomName,
-          type: "text",
+          type: 'text',
         },
         {
-          value: "Deallocate",
+          value: 'Deallocate',
           primaryId: allocation.allocateClassroomID,
-          type: "button",
+          type: 'button',
         },
       ];
       tempTableData.push(data);
@@ -39,7 +37,7 @@ function AllocateClassroomTable({ teacherId }) {
     setTableData(tempTableData);
   }, [teacherId, allocateClassrooms]);
 
-  const tableColumns = ["Classroom", "Action"];
+  const tableColumns = ['Classroom', 'Action'];
 
   const onClickButton = (value) => {
     dispatch(deleteAllocateClassroomById(value));
@@ -54,7 +52,7 @@ function AllocateClassroomTable({ teacherId }) {
           onClickButton={onClickButton}
         />
       ) : (
-        ""
+        ''
       )}
     </>
   );
