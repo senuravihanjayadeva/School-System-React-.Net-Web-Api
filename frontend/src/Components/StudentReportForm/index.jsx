@@ -100,7 +100,7 @@ function StudentReportForm() {
           <Col>
             <FormGroup>
               <Label for='dateOfBirth'>Date of Birth</Label>
-              <Input type='date' name='dateOfBirth' id='dateOfBirth' value={dateOfBirth} />
+              <Input type='date' name='dateOfBirth' id='dateOfBirth' value={dateOfBirth.substring(0, 10)} />
             </FormGroup>
           </Col>
           <Col>
