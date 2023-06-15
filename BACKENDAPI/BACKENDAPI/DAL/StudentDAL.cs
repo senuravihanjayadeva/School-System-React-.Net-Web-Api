@@ -9,6 +9,36 @@ namespace BACKENDAPI.DAL
 {
 	public class StudentDAL
 	{
+        public List<StudentReportDTO> GetAllStudentsForReport(MySqlConnection connection,int id)
+        {
+            StudentReportDTO response = new StudentReportDTO();
+            MySqlDataAdapter da = new MySqlDataAdapter("SELECT Students.StudentID, Students.FirstName, Students.LastName, Students.ContactPerson,Students.ContactNo, Students.EmailAddress, Students.DateOfBirth, Students.Age,Classrooms.ClassroomID, Classrooms.ClassroomName,Teachers.FirstName AS TeacherFirstName, Teachers.LastName AS TeacherLastName,Subjects.SubjectID, Subjects.SubjectName FROM Students LEFT JOIN Classrooms ON Students.ClassroomID = Classrooms.ClassroomID LEFT JOIN AllocateClassrooms ON Students.ClassroomID = AllocateClassrooms.ClassroomID LEFT JOIN Teachers ON AllocateClassrooms.TeacherID = Teachers.TeacherID LEFT JOIN AllocateSubjects ON AllocateClassrooms.TeacherID = AllocateSubjects.TeacherID LEFT JOIN Subjects ON AllocateSubjects.SubjectID = Subjects.SubjectID WHERE Students.StudentID = '" + id + "'", connection);
+            DataTable dt = new DataTable();
+            List<StudentReportDTO> students = new List<StudentReportDTO>();
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    StudentReportDTO student = new StudentReportDTO();
+                    student.StudentID = Convert.ToInt32(dt.Rows[i]["StudentID"]);
+                    student.FirstName = Convert.ToString(dt.Rows[i]["FirstName"]);
+                    student.LastName = Convert.ToString(dt.Rows[i]["LastName"]);
+                    student.ContactPerson = Convert.ToString(dt.Rows[i]["ContactPerson"]);
+                    student.ContactNo = Convert.ToString(dt.Rows[i]["ContactNo"]);
+                    student.EmailAddress = Convert.ToString(dt.Rows[i]["EmailAddress"]);
+                    student.DateOfBirth = Convert.ToDateTime(dt.Rows[i]["DateOfBirth"]);
+                    student.ClassroomName = Convert.ToString(dt.Rows[i]["ClassroomName"]);
+                    student.TeacherFirstName = Convert.ToString(dt.Rows[i]["TeacherFirstName"]);
+                    student.TeacherLastName = Convert.ToString(dt.Rows[i]["TeacherLastName"]);
+                    student.SubjectName = Convert.ToString(dt.Rows[i]["SubjectName"]);
+                    students.Add(student);
+                }
+            }
+
+            return students;
+        }
+
         public List<StudentDTO> GetAllStudents(MySqlConnection connection)
         {
             StudentDTO response = new StudentDTO();

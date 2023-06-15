@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import {
   deleteStudentById,
   getStudentById,
+  getStudentReportById,
   getStudents,
   saveStudent,
   updateStudentById,
@@ -13,6 +14,7 @@ const studentSlice = createSlice({
   initialState: {
     selectedStudent: null,
     students: [],
+    studentsreports:null
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -27,6 +29,12 @@ const studentSlice = createSlice({
       state.selectedStudent = action.payload;
     });
     builder.addCase(getStudentById.rejected, (state, action) => {
+      toast.error("Something went wrong");
+    });
+    builder.addCase(getStudentReportById.fulfilled, (state, action) => {
+      state.studentsreports = action.payload;
+    });
+    builder.addCase(getStudentReportById.rejected, (state, action) => {
       toast.error("Something went wrong");
     });
     builder.addCase(getStudents.fulfilled, (state, action) => {

@@ -24,6 +24,15 @@ namespace BACKENDAPI.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllStudentsForReport/{id}")]
+        public List<StudentReportDTO> GetAllStudents(int id)
+        {
+            MySqlConnection connection = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection").ToString());
+            StudentDAL dal = new StudentDAL();
+            return dal.GetAllStudentsForReport(connection,id);
+        }
+
+        [HttpGet]
         [Route("GetAllStudents")]
         public List<StudentDTO> GetAllStudents()
         {

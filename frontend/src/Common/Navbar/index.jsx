@@ -22,6 +22,9 @@ function NavbarComponent(args) {
             <NavItem>
               <NavLink href='/allocateclassroom'>Allocate Classroom</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href='/report'>Student Report</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

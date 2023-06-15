@@ -11,6 +11,11 @@ export const getStudents = createAsyncThunk("student/getStudents", async () => {
   return response.data;
 });
 
+export const getStudentReportById = createAsyncThunk("student/getStudentReportById", async (id) => {
+  const response = await STUDENTAPI.getStudentReportById(id);
+  return response.data;
+});
+
 export const getStudentById = createAsyncThunk("student/getStudentById", async (id) => {
   const response = await STUDENTAPI.getStudentById(id);
   return response.data;
